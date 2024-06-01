@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquAI - Gestor de Calidad del Agua</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div id="intro" class="intro">
+        <div class="intro-content">
+            <h1>AquAI</h1>
+            <p>Gestor de Calidad del Agua</p>
+        </div>
+    </div>
+    <header>
+        <h1>AquAI - Gestor de Calidad del Agua</h1>
+    </header>
+    <main>
+        <section id="ph-section" class="data-section">
+            <div class="section-header">
+                <h2>pH del Agua <span class="info-icon" id="ph-info">?</span></h2>
+                <button class="view-history" id="view-ph-history">Ver Datos Históricos</button>
+            </div>
+            <div class="definition" id="ph-definition">El pH es una medida de la acidez o alcalinidad de una solución.</div>
+            <div class="value" id="ph-value"></div>
+            <div class="average" id="ph-average"></div>
+            <div class="recommendations" id="ph-recommendations"></div>
+            <canvas id="ph-chart"></canvas>
+            <table class="history-table" id="ph-history-table"></table>
+            <button class="export-excel" id="export-ph-excel">Exportar a Excel</button>
+        </section>
+        <section id="electronegativity-section" class="data-section">
+            <div class="section-header">
+                <h2>Electronegatividad del Agua <span class="info-icon" id="electronegativity-info">?</span></h2>
+                <button class="view-history" id="view-electronegativity-history">Ver Datos Históricos</button>
+            </div>
+            <div class="definition" id="electronegativity-definition">La electronegatividad es una medida de la tendencia de un átomo a atraer electrones.</div>
+            <div class="value" id="electronegativity-value"></div>
+            <div class="average" id="electronegativity-average"></div>
+            <div class="recommendations" id="electronegativity-recommendations"></div>
+            <canvas id="electronegativity-chart"></canvas>
+            <table class="history-table" id="electronegativity-history-table"></table>
+            <button class="export-excel" id="export-electronegativity-excel">Exportar a Excel</button>
+        </section>
+        <section id="temperature-section" class="data-section">
+            <div class="section-header">
+                <h2>Temperatura del Agua <span class="info-icon" id="temperature-info">?</span></h2>
+                <button class="view-history" id="view-temperature-history">Ver Datos Históricos</button>
+            </div>
+            <div class="definition" id="temperature-definition">La temperatura del agua afecta la solubilidad del oxígeno y la tasa metabólica de los organismos acuáticos.</div>
+            <div class="value" id="temperature-value"></div>
+            <div class="average" id="temperature-average"></div>
+            <div class="recommendations" id="temperature-recommendations"></div>
+            <canvas id="temperature-chart"></canvas>
+            <table class="history-table" id="temperature-history-table"></table>
+            <button class="export-excel" id="export-temperature-excel">Exportar a Excel</button>
+        </section>
+        <section id="explanation-section">
+            <h2>Importancia de Mantener pH, Temperatura y Electronegatividad del Agua</h2>
+            <p>El pH, la temperatura y la electronegatividad son parámetros críticos para garantizar la calidad del agua. El pH adecuado asegura la salud de los organismos acuáticos y previene la corrosión o incrustación en sistemas de agua. La temperatura influye en la solubilidad del oxígeno y en la tasa metabólica de los organismos. La electronegatividad afecta la reactividad química del agua y su capacidad para disolver minerales y otras sustancias. Mantener estos parámetros dentro de rangos óptimos es esencial para la vida acuática y la eficacia de los procesos industriales y domésticos que utilizan agua.</p>
+        </section>
+        <section id="activity-section">
+            <h2>Actividad Reciente <button id="toggle-activity">Minimizar</button></h2>
+            <div id="activity-log" class="activity-log"></div>
+        </section>
+    </main>
+    <footer>
+        <p>Colores: Verde (Normal), Amarillo (Alto), Rojo (Exagerado), Gris (Bajo)</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
