@@ -156,17 +156,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateValues() {
-        const phValue = getRandomValue(6, 8);
+        const phValue = getRandomValue(6, 9);
         const phAverage = 7.0;
         setSectionData('ph', phValue, phAverage);
         phHistory.push({ timestamp: new Date().toLocaleString(), value: phValue });
 
-        const electronegativityValue = getRandomValue(2, 4);
+        const electronegativityValue = getRandomValue(2, 5);
         const electronegativityAverage = 3.0;
         setSectionData('electronegativity', electronegativityValue, electronegativityAverage);
         electronegativityHistory.push({ timestamp: new Date().toLocaleString(), value: electronegativityValue });
 
-        const temperatureValue = getRandomValue(15, 30);
+        const temperatureValue = getRandomValue(15, 35);
         const temperatureAverage = 22.5;
         setSectionData('temperature', temperatureValue, temperatureAverage);
         temperatureHistory.push({ timestamp: new Date().toLocaleString(), value: temperatureValue });
