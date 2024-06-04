@@ -11,8 +11,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.2.1/exceljs.min.js"></script>
-    <link rel="shortcut icon" href="C:\Users\croc1\OneDrive\Escritorio\PY\proyecto\aquai.png"> 
-
+    <link rel="shortcut icon" href="C:\Users\croc1\OneDrive\Escritorio\PY\proyecto\aquai.png">
+    <style>
+        /* Estilos personalizados */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .botui-app-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: none;
+            z-index: 1000;
+        }
+        #chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
     <div id="intro" class="intro">
@@ -25,6 +58,21 @@
         <h1>AquAI - Gestor de Calidad del Agua</h1>
     </header>
     <main>
+        <div id="config-modal">
+            <h2>Configurar Umbrales</h2>
+            <label for="ph-average-input">Promedio pH:</label>
+            <input type="number" id="ph-average-input" value="7.0">
+            <br>
+            <label for="electronegativity-average-input">Promedio Electronegatividad:</label>
+            <input type="number" id="electronegativity-average-input" value="3.0">
+            <br>
+            <label for="temperature-average-input">Promedio Temperatura:</label>
+            <input type="number" id="temperature-average-input" value="22.5">
+            <br>
+            <button id="save-config">Guardar</button>
+            <button id="close-config">Cerrar</button>
+        </div>
+        <button class="rueda" id="config-button">⚙️</button>
         <section id="ph-section" class="data-section">
             <div class="section-header">
                 <h2>pH del Agua <span class="info-icon" id="ph-info">?</span></h2>
@@ -35,7 +83,7 @@
             <div class="average" id="ph-average"></div>
             <div class="recommendations" id="ph-recommendations"></div>
             <canvas id="ph-chart"></canvas>
-            <table class="history-table" id="ph-history-table"></table>
+            <table class="history-table" id="ph-history-table" style="display: none;"></table>
             <button class="export-excel" id="export-ph-excel">Exportar a Excel</button>
         </section>
         <section id="electronegativity-section" class="data-section">
@@ -48,7 +96,7 @@
             <div class="average" id="electronegativity-average"></div>
             <div class="recommendations" id="electronegativity-recommendations"></div>
             <canvas id="electronegativity-chart"></canvas>
-            <table class="history-table" id="electronegativity-history-table"></table>
+            <table class="history-table" id="electronegativity-history-table" style="display: none;"></table>
             <button class="export-excel" id="export-electronegativity-excel">Exportar a Excel</button>
         </section>
         <section id="temperature-section" class="data-section">
@@ -61,22 +109,20 @@
             <div class="average" id="temperature-average"></div>
             <div class="recommendations" id="temperature-recommendations"></div>
             <canvas id="temperature-chart"></canvas>
-            <table class="history-table" id="temperature-history-table"></table>
+            <table class="history-table" id="temperature-history-table" style="display: none;"></table>
             <button class="export-excel" id="export-temperature-excel">Exportar a Excel</button>
         </section>
-        <section id="explanation-section">
-            <h2>Importancia de Mantener pH, Temperatura y Electronegatividad del Agua</h2>
-            <p>El pH, la temperatura y la electronegatividad son parámetros críticos para garantizar la calidad del agua. El pH adecuado asegura la salud de los organismos acuáticos y previene la corrosión o incrustación en sistemas de agua. La temperatura influye en la solubilidad del oxígeno y en la tasa metabólica de los organismos. La electronegatividad afecta la reactividad química del agua y su capacidad para disolver minerales y otras sustancias. Mantener estos parámetros dentro de rangos óptimos es esencial para la vida acuática y la eficacia de los procesos industriales y domésticos que utilizan agua.</p>
-        </section>
-
         <section id="activity-section">
             <h2>Actividad Reciente <button id="toggle-activity">Minimizar</button></h2>
             <div id="activity-log" class="activity-log"></div>
         </section>
-                <h1></h1>
+        <h2></h2>
         <footer>
             <p>Colores: Verde (Normal), Naranja (Alto), Rojo (Exagerado), Gris (Bajo)</p>
         </footer>
+
+
+    </main>
         <style>
             /* Estilos personalizados para el chatbot */
             body {
