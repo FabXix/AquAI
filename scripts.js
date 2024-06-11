@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function addActivityLog(sectionId, value, average) {
         const activityLog = document.getElementById('activity-log');
-        const timestamp = new Date().toLocaleString(); // Cambiado para incluir fecha y hora
+        const timestamp = new Date().toLocaleString();
         let message = '';
 
         if (sectionId === 'ph') {
@@ -150,6 +150,23 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: {
                         beginAtZero: false
                     }
+                },
+                plugins: {
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'xy',
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true,
+                            },
+                            pinch: {
+                                enabled: true
+                            },
+                            mode: 'xy',
+                        }
+                    }
                 }
             }
         });
@@ -157,17 +174,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateValues() {
         const phValue = parseFloat(getRandomValue(6, 9));
-        const phAverage = 7.0;
+        const phAverage = thresholds.ph.average;
         phHistory.push({ timestamp: new Date().toLocaleString(), value: phValue });
         setSectionData('ph', phValue, phAverage, phHistory);
 
         const electronegativityValue = parseFloat(getRandomValue(2, 5));
-        const electronegativityAverage = 3.0;
+        const electronegativityAverage = thresholds.electronegativity.average;
         electronegativityHistory.push({ timestamp: new Date().toLocaleString(), value: electronegativityValue });
         setSectionData('electronegativity', electronegativityValue, electronegativityAverage, electronegativityHistory);
 
         const temperatureValue = parseFloat(getRandomValue(15, 32));
-        const temperatureAverage = 22.5;
+        const temperatureAverage = thresholds.temperature.average;
         temperatureHistory.push({ timestamp: new Date().toLocaleString(), value: temperatureValue });
         setSectionData('temperature', temperatureValue, temperatureAverage, temperatureHistory);
 
@@ -286,4 +303,33 @@ document.addEventListener('DOMContentLoaded', function () {
         showMainContent();
         updateValues();
     }, 3000);
+
+    // Código para la configuración de umbrales
+    const thresholds = {
+        ph: { low: 0, high: 14, average: 7.0 },
+        electronegativity: { low: 0, high: 10, average: 3.0 },
+        temperature: { low: -10, high: 50, average: 22.5 }
+    };
+
+    const configButton = document.getElementById('config-button');
+    const configModal = document.getElementById('config-modal');
+    const closeConfigButton = document.getElementById('close-config');
+    const saveConfigButton = document.getElementById('save-config');
+
+    configButton.addEventListener('click', () => {
+        configModal.style.display = 'block';
+    });
+
+    closeConfigButton.addEventListener('click', () => {
+        configModal.style.display = 'none';
+    });
+
+    saveConfigButton.addEventListener('click', () => {
+        thresholds.ph.average = parseFloat(document.getElementById('ph-average-input').value);
+        thresholds.electronegativity.average = parseFloat(document.getElementById('electronegativity-average-input').value);
+        thresholds.temperature.average = parseFloat(document.getElementById('temperature-average-input').value);
+
+        configModal.style.display = 'none';
+    });
 });
+
